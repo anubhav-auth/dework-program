@@ -1,4 +1,4 @@
-use anchor_lang::{prelude::*, solana_program::bpf_loader_upgradeable::close};
+use anchor_lang::prelude::*;
 use crate::state::job::*;
 
 #[error_code]
