@@ -30,6 +30,7 @@ pub fn submit_quote(
     let quote = &mut ctx.accounts.quote;
 
     quote.worker = ctx.accounts.worker.key();
+    quote.client = ctx.accounts.job.client;
     quote.job = ctx.accounts.job.key();
     quote.proposed_budget = proposed_budget;
     quote.message = message;

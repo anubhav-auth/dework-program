@@ -4,7 +4,6 @@ use anchor_lang::{
 };
 use crate::state::{job::*, quotes::*};
 
-
 #[error_code]
 pub enum ErrorCode {
     #[msg("You are not authorized to perform this action")]
@@ -56,7 +55,9 @@ pub fn accept_quote(ctx: Context<AcceptQuote>) -> Result<()> {
     )?;
 
     job.is_open = false;
+    job.worker = quote.worker;
     quote.accepted = true;
+
 
     Ok(())
 }

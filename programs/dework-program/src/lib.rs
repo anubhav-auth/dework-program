@@ -3,8 +3,8 @@
 pub mod instructions;
 pub mod state;
 pub use instructions::{
-    accept_quote::*, create_job::*, delete_job::*, handle_dispute::*, release_payment::*,
-    submit_quote::*, update_job::*,
+    accept_quote::*, create_job::*, delete_job::*, raise_dispute::*, release_payment::*,
+    resolve_dispute::*, submit_quote::*, update_job::*,
 };
 
 use anchor_lang::prelude::*;

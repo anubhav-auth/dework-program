@@ -23,5 +23,6 @@ pub fn create_job(
     job.budget = budget;
     job.is_open = true;
     job.job_completed = false;
+    job.dispute_flag = false;
     Ok(())
 }
