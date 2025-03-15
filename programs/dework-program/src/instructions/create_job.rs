@@ -22,5 +22,6 @@ pub fn create_job(
     job.description = description;
     job.budget = budget;
     job.is_open = true;
+    job.job_completed = false;
     Ok(())
 }

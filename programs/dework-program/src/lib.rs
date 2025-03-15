@@ -29,9 +29,10 @@ pub mod dework_program {
         title: Option<String>, 
         description: Option<String>, 
         budget: Option<u64>, 
-        is_open: Option<bool>
+        is_open: Option<bool>,
+        job_complete: Option<bool>
     ) -> Result<()> {
-        update_job(ctx, title, description, budget, is_open)
+        update_job(ctx, title, description, budget, is_open, job_complete)
     }
 
     pub fn delete_existing_job(

@@ -5,6 +5,9 @@ use crate::state::job::*;
 pub enum ErrorCode {
     #[msg("You are not authorized to perform this action")]
     Unauthorized,
+
+    #[msg("Already marked complete")]
+    MarkedComplete
 }
 
 
@@ -23,9 +26,11 @@ pub fn update_job(
     title: Option<String>,
     description: Option<String>,
     budget: Option<u64>,
-    is_open: Option<bool>
+    is_open: Option<bool>,
+    job_complete: Option<bool>
 ) -> Result<()>{
     let job = &mut ctx.accounts.job;
+
     if let Some(new_title) = title{
         job.title = new_title;
     }
@@ -38,7 +43,21 @@ pub fn update_job(
     }
     
     if let Some(new_is_open) = is_open {
+
+        if job.job_completed {
+            return Err(ErrorCode::MarkedComplete.into());
+        }
+
         job.is_open = new_is_open;
+    }
+
+    if let Some(new_job_complete) = job_complete {
+
+        if job.job_completed {
+            return Err(ErrorCode::MarkedComplete.into());
+        }
+
+        job.job_completed = new_job_complete;
     }
 
     Ok(())

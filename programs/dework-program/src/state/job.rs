@@ -6,5 +6,6 @@ pub struct Job{
     pub title: String, // title of job
     pub description: String, // description of job
     pub budget: u64, // //budget allocated for the job
-    pub is_open: bool // wether the job is still available or not
+    pub is_open: bool, // wether the job is still available or not
+    pub job_completed: bool
 }
