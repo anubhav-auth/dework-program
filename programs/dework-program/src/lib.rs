@@ -22,7 +22,6 @@ pub mod dework_program {
     pub fn update_existing_job(ctx: Context<UpdateJob>, title: Option<String>, description: Option<String>, budget: Option<u64>, is_open: Option<bool>) -> Result<()> {
         update_job(ctx, title, description, budget, is_open)
     }
+
+    
 }
-
-
-
