@@ -1,5 +1,3 @@
-use std::thread::AccessError;
-
 use anchor_lang::{
     prelude::*,
     system_program
