@@ -1,6 +1,9 @@
 use std::thread::AccessError;
 
-use anchor_lang::{prelude::*, solana_program::system_instruction::transfer, system_program::Transfer};
+use anchor_lang::{
+    prelude::*,
+    system_program
+};
 use crate::state::{job::*, quotes::*};
 
 
@@ -25,7 +28,8 @@ pub struct AcceptQuote<'info>{
     #[account(mut, has_one = job @ ErrorCode::InvalidQuote)]
     pub quote: Account<'info, Quote>,
 
-    pub client:Signer<'info>,
+    #[account(mut)]
+    pub client: Signer<'info>,
 
     #[account(mut, seeds = [b"escrow", job.key().as_ref(), quote.worker.key().as_ref()], bump)]
     pub escrow_account: UncheckedAccount<'info>, 
@@ -34,32 +38,24 @@ pub struct AcceptQuote<'info>{
 }
 
 
-pub fn accept_quote(ctx:Context<AcceptQuote>)-> Result<()>{
+pub fn accept_quote(ctx: Context<AcceptQuote>) -> Result<()> {
     let job = &mut ctx.accounts.job;
     let quote = &mut ctx.accounts.quote;
-    let escrow_account = &mut ctx.accounts.escrow_account.to_account_info();
-    let client = &mut ctx.accounts.client.to_account_info();
-    let sys
 
     if !job.is_open {
         return Err(ErrorCode::QuoteAlreadyAccepted.into());
     }
-
-    let transfer_ix = Transfer{
-        from: client.clone(),
-        to: escrow_account.clone()
-    };
-
-    // Execute the transfer instruction
-    invoke(
-        &transfer_ix,
-        &[
-            client.to_account_info(),
-            escrow_account.to_account_info(),
-            system_program.to_account_info(),
-        ],
+    
+    system_program::transfer(
+        CpiContext::new(
+            ctx.accounts.system_program.to_account_info(),
+            system_program::Transfer {
+                from: ctx.accounts.client.to_account_info(),
+                to: ctx.accounts.escrow_account.to_account_info(),
+            },
+        ),
+        quote.proposed_budget,
     )?;
-
 
     job.is_open = false;
     quote.accepted = true;
