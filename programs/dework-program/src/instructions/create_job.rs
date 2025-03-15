@@ -1,4 +1,3 @@
-// src/instructions.rs
 use anchor_lang::prelude::*;
 use crate::state::job::*;
 
