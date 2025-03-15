@@ -3,7 +3,7 @@
 
 pub mod instructions;
 pub mod state;
-pub use instructions::{create_job::*, update_job::*};
+pub use instructions::{create_job::*, update_job::*, delete_job::*};
 
 
 
@@ -23,5 +23,7 @@ pub mod dework_program {
         update_job(ctx, title, description, budget, is_open)
     }
 
-    
+    pub fn delete_existing_job(ctx: Context<DeleteJob>) -> Result<()> {
+        delete_job(ctx)
+    }
 }
