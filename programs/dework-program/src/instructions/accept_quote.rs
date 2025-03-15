@@ -3,18 +3,7 @@ use anchor_lang::{
     system_program
 };
 use crate::state::{job::*, quotes::*};
-
-#[error_code]
-pub enum ErrorCode {
-    #[msg("You are not authorized to perform this action")]
-    Unauthorized,
-
-    #[msg("Quote does not belong to this job")]
-    InvalidQuote,
-
-    #[msg("A quote has already been accepted for this job")]
-    QuoteAlreadyAccepted,
-}
+use crate::instructions::errors::ErrorCode;
 
 #[derive(Accounts)]
 pub struct AcceptQuote<'info>{
@@ -28,6 +17,7 @@ pub struct AcceptQuote<'info>{
     #[account(mut)]
     pub client: Signer<'info>,
 
+    /// CHECK: This is a PDA derived from the job and worker keys, used as an escrow account
     #[account(mut, seeds = [b"escrow", job.key().as_ref(), quote.worker.key().as_ref()], bump)]
     pub escrow_account: UncheckedAccount<'info>, 
 

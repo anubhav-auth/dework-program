@@ -1,20 +1,6 @@
 use crate::state::{job::*, quotes::*};
 use anchor_lang::{prelude::*, system_program};
-
-#[error_code]
-pub enum ErrorCode {
-    #[msg("You are not authorized to perform this action")]
-    Unauthorized,
-
-    #[msg("Quote does not belong to this job")]
-    InvalidQuote,
-
-    #[msg("Job not marked complete")]
-    InvalidPaymentRequest,
-
-    #[msg("At least 2 approvals required to release payment")]
-    InsufficientApprovals,
-}
+use crate::instructions::errors::ErrorCode;
 
 #[derive(Accounts)]
 pub struct ReleasePayment<'info> {
@@ -29,6 +15,8 @@ pub struct ReleasePayment<'info> {
         seeds = [b"escrow", job.key().as_ref(), quote.worker.key().as_ref()],
         bump
     )]
+
+    /// CHECK: This is a manually derived PDA and is safe because it follows the escrow pattern.
     pub escrow_account: SystemAccount<'info>,
 
     #[account(mut, address = quote.worker)]

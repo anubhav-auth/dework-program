@@ -1,17 +1,6 @@
 use anchor_lang::{prelude::*, system_program};
 use crate::state::{job::*, quotes::*};
-
-#[error_code]
-pub enum ErrorCode {
-    #[msg("You are not authorized to perform this action")]
-    Unauthorized,
-    
-    #[msg("Job is not under dispute")]
-    JobNotInDispute,
-    
-    #[msg("Invalid resolution option")]
-    InvalidResolutionOption,
-}
+use crate::instructions::errors::ErrorCode;
 
 #[derive(Accounts)]
 pub struct ResolveDispute<'info>{
@@ -22,6 +11,7 @@ pub struct ResolveDispute<'info>{
     #[account()]
     pub quote: Account<'info, Quote>,
 
+    /// CHECK: This is a manually derived PDA and is safe because it follows the escrow pattern.
     #[account(mut, seeds = [b"escrow", job.key().as_ref(), quote.worker.key().as_ref()], bump)]
     pub escrow_account: SystemAccount<'info>,
     

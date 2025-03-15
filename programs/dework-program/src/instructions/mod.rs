@@ -6,3 +6,4 @@ pub mod accept_quote;
 pub mod release_payment;
 pub mod resolve_dispute;
 pub mod raise_dispute;
+pub mod errors;

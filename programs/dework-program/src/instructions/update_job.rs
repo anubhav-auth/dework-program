@@ -1,14 +1,6 @@
 use anchor_lang::prelude::*;
 use crate::state::job::*;
-
-#[error_code]
-pub enum ErrorCode {
-    #[msg("You are not authorized to perform this action")]
-    Unauthorized,
-
-    #[msg("Already marked complete")]
-    MarkedComplete
-}
+use crate::instructions::errors::ErrorCode;
 
 
 #[derive(Accounts)]

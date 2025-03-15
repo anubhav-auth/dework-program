@@ -1,14 +1,6 @@
 use anchor_lang::prelude::*;
 use crate::state::job::*;
-
-#[error_code]
-pub enum ErrorCode {
-    #[msg("")]
-    JobClosed,
-
-    #[msg("")]
-    DisputeAlreadyRaised
-}
+use crate::instructions::errors::ErrorCode;
 
 
 #[derive(Accounts)]
