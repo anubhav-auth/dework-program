@@ -46,26 +46,18 @@ pub fn resolve_dispute(ctx: Context<ResolveDispute>, resolution: u8, split: Opti
     let amount = quote.proposed_budget;
 
     require!(job.dispute_flag, ErrorCode::JobNotInDispute);
-    
-    let mut recipient = worker_account.to_account_info();
-    let mut payout_amount = amount;
 
-    match resolution {
-        0 => { 
-            recipient = client_account.to_account_info();
-            payout_amount = amount;
-        }
-        1 => { 
-            recipient = worker_account.to_account_info();
-            payout_amount = amount;
-        }
+    let (recipient, payout_amount) = match resolution {
+        0 => (client_account.to_account_info(), amount), 
+        1 => (worker_account.to_account_info(), amount), 
         2 => { 
             let split_ratio = split.unwrap_or(50) as u64; 
             require!(split_ratio <= 100, ErrorCode::InvalidResolutionOption);
 
-            payout_amount = (split_ratio * amount) / 100; 
+            let worker_share = (split_ratio * amount) / 100; 
+            let client_share = amount - worker_share; 
+
             
-            // Transfer remaining amount back to client
             system_program::transfer(
                 CpiContext::new(
                     ctx.accounts.system_program.to_account_info(),
@@ -74,12 +66,15 @@ pub fn resolve_dispute(ctx: Context<ResolveDispute>, resolution: u8, split: Opti
                         to: client_account.to_account_info(),
                     },
                 ),
-                amount - payout_amount,
+                client_share,
             )?;
+
+            (worker_account.to_account_info(), worker_share) 
         }
         _ => return Err(ErrorCode::InvalidResolutionOption.into()),
-    }
+    };
 
+    
     system_program::transfer(
         CpiContext::new(
             ctx.accounts.system_program.to_account_info(),
@@ -93,8 +88,3 @@ pub fn resolve_dispute(ctx: Context<ResolveDispute>, resolution: u8, split: Opti
 
     Ok(())
 }
-
-
-
-
-
