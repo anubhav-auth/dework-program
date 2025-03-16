@@ -15,6 +15,7 @@ pub struct CreateJob<'info> {
                4 + 500 +             // description: String (max 500 chars)
                8 +                   // budget: u64
                1 +                   // is_open: bool
+               1 +                   // is_accepted: bool
                1 +                   // job_completed: bool
                1 +                   // dispute_flag: bool
                1 +                   // client_signed: bool

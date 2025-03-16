@@ -36,5 +36,8 @@ pub enum ErrorCode {
     InvalidQuoteAmount,
 
     #[msg("Insufficient funds in escrow")]
-    InsufficientFunds
+    InsufficientFunds,
+
+    #[msg("Job accepted already cant delete")]
+    JobAcceptedAlready
 }

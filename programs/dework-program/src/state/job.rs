@@ -9,6 +9,7 @@ pub struct Job{
     pub description: String, // description of job
     pub budget: u64, // //budget allocated for the job
     pub is_open: bool, // wether the job is still available or not
+    pub is_accepted: bool,
     pub job_completed: bool,
     pub dispute_flag: bool,    // True if dispute is raised
     pub client_signed: bool,   // Did the client approve release?

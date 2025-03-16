@@ -45,6 +45,7 @@ pub fn accept_quote(ctx: Context<AcceptQuote>) -> Result<()> {
     )?;
 
     job.is_open = false;
+    job.is_accepted = false;
     job.worker = quote.worker;
     job.escrow_funded = true;  
     job.escrow_amount = quote.proposed_budget;

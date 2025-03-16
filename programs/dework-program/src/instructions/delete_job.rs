@@ -15,6 +15,8 @@ pub struct DeleteJob<'info>{
 pub fn delete_job(ctx:Context<DeleteJob>) -> Result<()> {
     let job = &mut ctx.accounts.job;
     let client = &mut ctx.accounts.client;
+
+    require!(job.is_accepted, ErrorCode::JobAcceptedAlready);
     
     let job_lamports = job.to_account_info().lamports();
 
