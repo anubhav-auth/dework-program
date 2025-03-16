@@ -5,23 +5,6 @@ The **Dework Program** is a decentralized work management platform built on the 
 
 * * * * *
 
-Table of Contents
------------------
-
--   [Overview](https://chatgpt.com/c/67d6c65a-dea8-8002-97d3-33dc4c636f13#overview)
--   [Features](https://chatgpt.com/c/67d6c65a-dea8-8002-97d3-33dc4c636f13#features)
--   [Architecture](https://chatgpt.com/c/67d6c65a-dea8-8002-97d3-33dc4c636f13#architecture)
--   [Getting Started](https://chatgpt.com/c/67d6c65a-dea8-8002-97d3-33dc4c636f13#getting-started)
--   [Deployment](https://chatgpt.com/c/67d6c65a-dea8-8002-97d3-33dc4c636f13#deployment)
--   [Usage](https://chatgpt.com/c/67d6c65a-dea8-8002-97d3-33dc4c636f13#usage)
--   [Contract Structure](https://chatgpt.com/c/67d6c65a-dea8-8002-97d3-33dc4c636f13#contract-structure)
--   [Testing](https://chatgpt.com/c/67d6c65a-dea8-8002-97d3-33dc4c636f13#testing)
--   [Contributing](https://chatgpt.com/c/67d6c65a-dea8-8002-97d3-33dc4c636f13#contributing)
--   [License](https://chatgpt.com/c/67d6c65a-dea8-8002-97d3-33dc4c636f13#license)
--   [Contact](https://chatgpt.com/c/67d6c65a-dea8-8002-97d3-33dc4c636f13#contact)
-
-* * * * *
-
 Overview
 --------
 
@@ -98,7 +81,6 @@ Ensure you have the following installed:
 ```
 git clone https://github.com/anubhav-auth/dework-program.git
 cd dework-program
-
 ```
 
 ### Build the Program
@@ -107,7 +89,6 @@ Use the Anchor CLI to build the program:
 
 ```
 anchor build
-
 ```
 
 This command compiles the Rust code and produces the IDL and binaries required for deployment.
@@ -121,14 +102,12 @@ Deploy the program on your target Solana cluster (Devnet, Testnet, or Mainnet):
 
 ```
 anchor deploy
-
 ```
 
 The deployment process will register the program on the network with the following program ID:
 
 ```
 92sorgqaDHqG5T12ZqrTMSCFZEHaVxrANLWdSQ5fFUom
-
 ```
 
 Ensure your wallet has sufficient funds to cover deployment costs and follow any additional network-specific guidelines.
@@ -180,7 +159,6 @@ The program is designed to be tested using the Anchor testing framework. To run 
 
 ```
 anchor test
-
 ```
 
 Tests validate the integrity of job management, quote handling, escrow transfers, and dispute resolutions. Ensure you review and update tests as new features are integrated.
@@ -203,14 +181,14 @@ For major changes, please open an issue first to discuss your ideas.
 License
 -------
 
-This project is distributed under the MIT License. See [LICENSE](https://chatgpt.com/c/LICENSE) for more details.
+This project is distributed under the MIT License. See [LICENSE](LICENSE) for more details.
 
 * * * * *
 
 Contact
 -------
 
-For inquiries or further information, please reach out via the GitHub [Issues](https://github.com/anubhav-auth/dework-program/issues) page or directly contact the repository owner.
+For inquiries or further information, please reach out via the [GitHub](https://github.com/anubhav-auth) page or mail [gamil](mailto:anubhavauth@gmail.com).
 
 * * * * *
 
