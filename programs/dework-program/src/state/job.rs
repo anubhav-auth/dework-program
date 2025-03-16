@@ -15,5 +15,13 @@ pub struct Job{
     pub worker_signed: bool,   // Did the worker approve release?
     pub arbitrator_signed: bool, // Did the arbitrator step in?
     pub signatures: u8,     // Total approvals (2 needed for payout)
-    pub arbitrator_decision: Option<u8>
+    pub arbitrator_decision: Option<u8>,
+    pub escrow_funded: bool,
+    pub escrow_amount: u64,
+    pub dispute_resolved: bool,
+    pub dispute_resolved_at: i64,
+    pub payment_released: bool,
+    pub payment_released_at: i64,
+    pub dispute_raised_by_worker: bool,
+    pub dispute_raised_by_client: bool,
 }

@@ -30,5 +30,11 @@ pub enum ErrorCode {
     InvalidResolutionOption,
 
     #[msg("Job is already marked as complete")]
-    MarkedComplete
+    MarkedComplete,
+
+    #[msg("Invalid quote ammount")]
+    InvalidQuoteAmount,
+
+    #[msg("Insufficient funds in escrow")]
+    InsufficientFunds
 }

@@ -7,5 +7,7 @@ pub struct Quote{
     pub job: Pubkey,
     pub proposed_budget: u64,
     pub message: String,
-    pub accepted: bool
+    pub accepted: bool,
+    pub accepted_at: i64,
+    pub dispute_resolution: Option<u8>,
 }

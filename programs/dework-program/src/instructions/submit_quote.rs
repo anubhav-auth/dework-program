@@ -2,14 +2,21 @@ use anchor_lang::prelude::*;
 use crate::state::{job::*, quotes::*};
 
 #[derive(Accounts)]
-#[instruction(message: String)] // Ensure correct space allocation
+#[instruction(message: String)]
 pub struct SubmitQuote<'info>{
     #[account(
         init, 
-        payer=worker, 
-        space = 8 + 32 + 32 + 8 + 4 + message.capacity() + 1, // Adjust space dynamically
-        seeds = [b"quote", job.key().as_ref(), worker.key().as_ref()], //helps with security unique PDA (Program Derived Address) so can t be duplicated
-        bump
+        payer = worker, 
+        space = 8 +                  // Discriminator
+               32 +                  // client: Pubkey
+               32 +                  // worker: Pubkey
+               32 +                  // job: Pubkey
+               8 +                   // proposed_budget: u64
+               4 + message.len() +   // message: String (dynamic)
+               1 +                   // accepted: bool
+               8 +                   // accepted_at: i64
+               1 + 1 +               // dispute_resolution: Option<u8>
+               10                    // Buffer for potential additional space needs
     )]
     pub quote: Account<'info, Quote>,
 
@@ -23,9 +30,9 @@ pub struct SubmitQuote<'info>{
 }
 
 pub fn submit_quote(
-    ctx:Context<SubmitQuote>,
-    proposed_budget:u64,
-    message:String
+    ctx: Context<SubmitQuote>,
+    proposed_budget: u64,
+    message: String
 ) -> Result<()> {
     let quote = &mut ctx.accounts.quote;
 
@@ -35,7 +42,8 @@ pub fn submit_quote(
     quote.proposed_budget = proposed_budget;
     quote.message = message;
     quote.accepted = false;
+    quote.accepted_at = 0;
+    quote.dispute_resolution = None;
     
-
     Ok(())
 }
