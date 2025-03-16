@@ -18,15 +18,12 @@ pub fn delete_job(ctx:Context<DeleteJob>) -> Result<()> {
     
     let job_lamports = job.to_account_info().lamports();
 
-    **job.to_account_info().try_borrow_mut_lamports()? = 0;
     **client.to_account_info().try_borrow_mut_lamports()? += job_lamports;
-
+    **job.to_account_info().try_borrow_mut_lamports()? = 0;
 
     let account_info = job.to_account_info();
     let mut data = account_info.try_borrow_mut_data()?;
+    data.fill(0);
 
-    for byte in data.iter_mut() {
-        *byte = 0;
-    }
     Ok(())
 }
