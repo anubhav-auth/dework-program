@@ -3,6 +3,8 @@ Dework Program
 
 The **Dework Program** is a decentralized work management platform built on the Solana blockchain using the Anchor framework. This smart contract enables seamless interactions between clients, workers, and arbitrators by facilitating job creation, quote submissions, quote acceptance, dispute resolution, and secure payment releases. Designed with a focus on security, efficiency, and practical decentralized operations, this project is engineered for production-grade deployments.
 
+<img src="https://github.com/user-attachments/assets/93ca572b-5ed3-44a5-830e-19afc37743e5" style="height:450px;">
+
 * * * * *
 
 Overview
